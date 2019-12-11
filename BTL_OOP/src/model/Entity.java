@@ -6,6 +6,9 @@ public class Entity {
 	protected String description;
 	private String entity_name;
 	
+	public Entity() {
+		
+	}
 	public Entity(String name, String description) {
 		this.name = name;
 		this.description = description;

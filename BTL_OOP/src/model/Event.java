@@ -6,6 +6,9 @@ public class Event extends Entity {
 	
 	private Date date;
 	
+	public Event() {
+		super();
+	}
 	public Date getDate() {
 		return date;
 	}

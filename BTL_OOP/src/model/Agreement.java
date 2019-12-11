@@ -4,7 +4,10 @@ import java.sql.Date;
 
 public class Agreement extends Entity {
 	protected Date contract_date;
-
+	
+	public Agreement() {
+		super();
+	}
 	public Date getContract_date() {
 		return contract_date;
 	}
