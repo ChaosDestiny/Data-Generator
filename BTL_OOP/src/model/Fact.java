@@ -17,6 +17,9 @@ public class Fact {
 		this.extract_time = extract_time;
 		this.time = time;
 	}
+	public Fact() {
+		
+	}
 	
 	public String getSubject_id() {
 		return subject.getEntity_id();
