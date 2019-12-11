@@ -9,7 +9,7 @@ import java.util.List;
 
 import model.*;
 
-public class AgreementDAO implements ObjectDao<Agreement>{
+public class AgreementDAO implements ObjectDAO<Agreement>{
 	public AgreementDAO() {
 		
 	}
@@ -41,7 +41,7 @@ public class AgreementDAO implements ObjectDao<Agreement>{
 		String entity_id_str = (String) entity_id;
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM agreement WHERE event_id=" + entity_id_str);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM agreement WHERE agreement_id=" + entity_id_str);
 
 			Agreement agreement = new Agreement();
 			agreement.setEntity_id(rs.getString(1));
@@ -57,7 +57,7 @@ public class AgreementDAO implements ObjectDao<Agreement>{
 	public void remove(Agreement agreement) {
 		try {
 	        Statement stmt = connection.createStatement();
-	        stmt.executeUpdate("DELETE FROM agreement WHERE id=" + agreement.getEntity_id());
+	        stmt.executeUpdate("DELETE FROM agreement WHERE agreement_id=" + agreement.getEntity_id());
 	        stmt.close();
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();

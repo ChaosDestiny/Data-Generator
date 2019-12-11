@@ -9,7 +9,7 @@ import java.util.List;
 
 import model.Event;
 
-public class EventDAO implements ObjectDao<Event> {
+public class EventDAO implements ObjectDAO<Event> {
 	public EventDAO() {
 
 	}
@@ -28,7 +28,7 @@ public class EventDAO implements ObjectDao<Event> {
 
 	public void update(Event event) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE user SET time=? WHERE event_id=?");
+			PreparedStatement ps = connection.prepareStatement("UPDATE event SET time=? WHERE event_id=?");
 			ps.setDate(1, event.getDate());
 			ps.setString(2, event.getEntity_id());
 			ps.executeUpdate();
@@ -58,7 +58,7 @@ public class EventDAO implements ObjectDao<Event> {
 	public void remove(Event event) {
 		try {
 	        Statement stmt = connection.createStatement();
-	        stmt.executeUpdate("DELETE FROM event WHERE id=" + event.getEntity_id());
+	        stmt.executeUpdate("DELETE FROM event WHERE event_id=" + event.getEntity_id());
 	        stmt.close();
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();

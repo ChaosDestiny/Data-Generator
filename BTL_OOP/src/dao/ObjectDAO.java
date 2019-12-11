@@ -5,7 +5,7 @@ import java.util.List;
 
 import connection.JDBCMySQLConnection;
 
-public interface ObjectDao<T> {
+public interface ObjectDAO<T> {
 	public static final Connection connection = JDBCMySQLConnection.getConnection();
 	
 	List<T> findAll();

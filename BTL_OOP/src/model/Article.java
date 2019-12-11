@@ -6,7 +6,10 @@ public class Article {
 	private String link, title, article_id;
 	private Date publication_date;
 	
-	public Article(String title) {
+	public Article() {
+		
+	}
+ 	public Article(String title) {
 		this.title = title;
 	}
 	

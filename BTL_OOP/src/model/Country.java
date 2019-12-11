@@ -3,6 +3,9 @@ package model;
 public class Country extends Entity {
 	protected String capital;
 	
+	public Country() {
+		super();
+	}
 	public String getCapital() {
 		return capital;
 	}

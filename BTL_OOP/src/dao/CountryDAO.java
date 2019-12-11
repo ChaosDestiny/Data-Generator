@@ -10,7 +10,7 @@ import java.util.List;
 import model.Country;
 
 
-public class CountryDAO implements ObjectDao<Country>{
+public class CountryDAO implements ObjectDAO<Country>{
 	public CountryDAO() {
 
 	}
@@ -27,11 +27,11 @@ public class CountryDAO implements ObjectDao<Country>{
 		}
 	}
 
-	public void update(Event event) {
+	public void update(Country country) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE user SET time=? WHERE event_id=?");
-			ps.setDate(1, event.getDate());
-			ps.setString(2, event.getEntity_id());
+			PreparedStatement ps = connection.prepareStatement("UPDATE country SET capital=? WHERE country_id=?");
+			ps.setString(1, country.getCapital());
+			ps.setString(2, country.getEntity_id());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -39,39 +39,39 @@ public class CountryDAO implements ObjectDao<Country>{
 		}
 	}
 
-	public Event find(Object entity_id) {
+	public Country find(Object entity_id) {
 		String entity_id_str = (String) entity_id;
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM event WHERE event_id=" + entity_id_str);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM country WHERE country_id=" + entity_id_str);
 
-			Event event = new Event();
-			event.setEntity_id(rs.getString(1));
-			event.setDate(rs.getDate(2));
+			Country country = new Country();
+			country.setEntity_id(rs.getString(1));
+			country.setCapital(rs.getString(2));
 			stmt.close();
-			return event;
+			return country;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return null;
 	}
 
-	public void remove(Event event) {
+	public void remove(Country country) {
 		try {
 	        Statement stmt = connection.createStatement();
-	        stmt.executeUpdate("DELETE FROM event WHERE id=" + event.getEntity_id());
+	        stmt.executeUpdate("DELETE FROM country WHERE id=" + country.getEntity_id());
 	        stmt.close();
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();
 	    }
 	}
 
-	public void createBatch(List<Event> events) {
+	public void createBatch(List<Country> countries) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO event VALUES (?, ?)");
-			for (Event i: events) {
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO country VALUES (?, ?)");
+			for (Country i: countries) {
 				ps.setString(1, i.getEntity_id());
-				ps.setDate(2, i.getDate());
+				ps.setString(2, i.getCapital());
 				ps.addBatch();
 			}
 			ps.executeBatch();
@@ -81,19 +81,19 @@ public class CountryDAO implements ObjectDao<Country>{
 		}
 	}
 
-	public List<Event> findAll() {
+	public List<Country> findAll() {
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM event");
-			List<Event> events = new ArrayList<>();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM country");
+			List<Country> countries = new ArrayList<>();
 			while (rs.next()) {
-				Event event = new Event();
-				event.setEntity_id(rs.getString(1));
-				event.setDate(rs.getDate(2));
-				events.add(event);
+				Country country = new Country();
+				country.setEntity_id(rs.getString(1));
+				country.setCapital(rs.getString(2));
+				countries.add(country);
 			}
 			stmt.close();
-			return events;
+			return countries;
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();

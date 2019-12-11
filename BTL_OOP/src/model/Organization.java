@@ -3,7 +3,17 @@ package model;
 import java.sql.Date;
 
 public class Organization extends Entity {
-	
+	public Organization() {
+		super();
+	}
+	public void setHeadquarter(String headquarter) {
+		this.headquarter = headquarter;
+	}
+
+	public void setFounding_date(Date founding_date) {
+		this.founding_date = founding_date;
+	}
+
 	private String headquarter;
 	private Date founding_date;
 	
