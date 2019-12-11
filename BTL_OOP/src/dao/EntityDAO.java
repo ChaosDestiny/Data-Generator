@@ -7,20 +7,32 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Article;
 import model.Entity;
 
 public class EntityDAO implements ObjectDAO<Entity> {
 	public EntityDAO() {
 
 	}
+	
+	public void findUtilities(Entity entity, ResultSet rs) throws SQLException {
+		entity.setEntity_id(rs.getString(1));
+		entity.setName(rs.getString(2));
+		entity.setDescription(rs.getString(3));
+		entity.setName(rs.getString(4));
+	}
 
+	public void createUtilities(Entity entity, PreparedStatement ps) throws SQLException {
+		ps.setString(1, entity.getEntity_id());
+		ps.setString(2, entity.getName());
+		ps.setString(3, entity.getDescription());
+		ps.setString(4, entity.getEntity_name());
+	}
+	
 	public void create(Entity entity) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO entity VALUES (?, ?, ?, ?)");
-			ps.setString(1, entity.getEntity_id());
-			ps.setString(2, entity.getName());
-			ps.setString(3, entity.getDescription());
-			ps.setString(4, entity.getEntity_name());
+			this.createUtilities(entity, ps);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -50,10 +62,7 @@ public class EntityDAO implements ObjectDAO<Entity> {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM entity WHERE entity_id=" + entity_id_str);
 
 			Entity entity = new Entity();
-			entity.setEntity_id(rs.getString(1));
-			entity.setName(rs.getString(2));
-			entity.setDescription(rs.getString(3));
-			entity.setName(rs.getString(4));
+			this.findUtilities(entity, rs);
 			stmt.close();
 			return entity;
 		} catch (SQLException ex) {
@@ -76,10 +85,7 @@ public class EntityDAO implements ObjectDAO<Entity> {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO entity VALUES (?, ?, ?)");
 			for (Entity i : entitys) {
-				ps.setString(1, i.getEntity_id());
-				ps.setString(2, i.getName());
-				ps.setString(3, i.getDescription());
-				ps.setString(4, i.getEntity_name());
+				this.createUtilities(i, ps);
 				ps.addBatch();
 			}
 			ps.executeBatch();
@@ -96,10 +102,7 @@ public class EntityDAO implements ObjectDAO<Entity> {
 			List<Entity> entitys = new ArrayList<>();
 			while (rs.next()) {
 				Entity entity = new Entity();
-				entity.setEntity_id(rs.getString(1));
-				entity.setName(rs.getString(2));
-				entity.setDescription(rs.getString(3));
-				entity.setName(rs.getString(4));
+				this.findUtilities(entity, rs);
 				entitys.add(entity);
 			}
 			stmt.close();

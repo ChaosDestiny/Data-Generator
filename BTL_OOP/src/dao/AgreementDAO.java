@@ -13,11 +13,19 @@ public class AgreementDAO implements ObjectDAO<Agreement>{
 	public AgreementDAO() {
 		
 	}
+	public void findUtilities(Agreement agreement, ResultSet rs) throws SQLException {
+		agreement.setEntity_id(rs.getString(1));
+		agreement.setContract_date(rs.getDate(2));
+	}
+	
+	public void createUtilities(Agreement agreement, PreparedStatement ps) throws SQLException{
+		ps.setString(1, agreement.getEntity_id());
+		ps.setDate(2, agreement.getContract_date());
+	}
 	public void create(Agreement agreement) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO agreement VALUES (?, ?)");
-			ps.setString(1, agreement.getEntity_id());
-			ps.setDate(2, agreement.getContract_date());
+			createUtilities(agreement, ps);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -44,8 +52,7 @@ public class AgreementDAO implements ObjectDAO<Agreement>{
 			ResultSet rs = stmt.executeQuery("SELECT * FROM agreement WHERE agreement_id=" + entity_id_str);
 
 			Agreement agreement = new Agreement();
-			agreement.setEntity_id(rs.getString(1));
-			agreement.setContract_date(rs.getDate(2));
+			findUtilities(agreement, rs);
 			stmt.close();
 			return agreement;
 		} catch (SQLException ex) {
@@ -68,8 +75,7 @@ public class AgreementDAO implements ObjectDAO<Agreement>{
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO agreement VALUES (?, ?)");
 			for (Agreement i: agreements) {
-				ps.setString(1, i.getEntity_id());
-				ps.setDate(2, i.getContract_date());
+				createUtilities(i, ps);
 				ps.addBatch();
 			}
 			ps.executeBatch();
@@ -86,8 +92,7 @@ public class AgreementDAO implements ObjectDAO<Agreement>{
 			List<Agreement> agreements = new ArrayList<>();
 			while (rs.next()) {
 				Agreement agreement = new Agreement();
-				agreement.setEntity_id(rs.getString(1));
-				agreement.setContract_date(rs.getDate(2));
+				findUtilities(agreement, rs);
 				agreements.add(agreement);
 			}
 			stmt.close();

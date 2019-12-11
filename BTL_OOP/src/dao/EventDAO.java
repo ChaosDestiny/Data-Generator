@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Entity;
 import model.Event;
 
 public class EventDAO implements ObjectDAO<Event> {
@@ -14,11 +15,20 @@ public class EventDAO implements ObjectDAO<Event> {
 
 	}
 
+	public void findUtilities(Event event, ResultSet rs) throws SQLException {
+		event.setEntity_id(rs.getString(1));
+		event.setDate(rs.getDate(2));
+	}
+
+	public void createUtilities(Event event, PreparedStatement ps) throws SQLException {
+		ps.setString(1, event.getEntity_id());
+		ps.setDate(2, event.getDate());
+	}
+	
 	public void create(Event event) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO event VALUES (?, ?)");
-			ps.setString(1, event.getEntity_id());
-			ps.setDate(2, event.getDate());
+			this.createUtilities(event, ps);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -45,8 +55,7 @@ public class EventDAO implements ObjectDAO<Event> {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM event WHERE event_id=" + entity_id_str);
 
 			Event event = new Event();
-			event.setEntity_id(rs.getString(1));
-			event.setDate(rs.getDate(2));
+			this.findUtilities(event, rs);
 			stmt.close();
 			return event;
 		} catch (SQLException ex) {
@@ -68,9 +77,8 @@ public class EventDAO implements ObjectDAO<Event> {
 	public void createBatch(List<Event> events) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO event VALUES (?, ?)");
-			for (Event i: events) {
-				ps.setString(1, i.getEntity_id());
-				ps.setDate(2, i.getDate());
+			for (Event event: events) {
+				this.createUtilities(event, ps);
 				ps.addBatch();
 			}
 			ps.executeBatch();
@@ -87,8 +95,7 @@ public class EventDAO implements ObjectDAO<Event> {
 			List<Event> events = new ArrayList<>();
 			while (rs.next()) {
 				Event event = new Event();
-				event.setEntity_id(rs.getString(1));
-				event.setDate(rs.getDate(2));
+				this.findUtilities(event, rs);
 				events.add(event);
 			}
 			stmt.close();

@@ -12,19 +12,33 @@ import model.Fact;
 
 public class FactDAO implements ObjectDAO<Fact>{
 	public FactDAO() {
-
+		
 	}
-
+	public void findUtilities(Fact fact, ResultSet rs) throws SQLException {
+		EntityDAO entity = new EntityDAO();
+		ArticleDAO article = new ArticleDAO();
+		fact.setFact_id(rs.getString(1));
+		fact.setSubject(entity.find(rs.getString(2)));
+		fact.setRelationship(rs.getString(3));
+		fact.setObject(entity.find(rs.getString(4)));
+		fact.setArticle(article.find(rs.getString(5)));
+		fact.setTime(rs.getDate(6));
+		fact.setExtract_time(rs.getDate(7));
+	}
+	
+	public void createUtilities(Fact fact, PreparedStatement ps) throws SQLException{
+		ps.setString(1, fact.getFact_id());
+		ps.setString(2, fact.getSubject_id());
+		ps.setString(3, fact.getRelationship());
+		ps.setString(4, fact.getObject_id());
+		ps.setString(5, fact.getArticle_id());
+		ps.setDate(6, fact.getTime());
+		ps.setDate(7, fact.getExtract_time());
+	}
 	public void create(Fact fact) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO fact VALUES (?, ?, ?, ?, ?, ?, ?)");
-			ps.setString(1, fact.getFact_id());
-			ps.setString(2, fact.getSubject_id());
-			ps.setString(3, fact.getRelationship());
-			ps.setString(4, fact.getObject_id());
-			ps.setString(5, fact.getArticle_id());
-			ps.setDate(6, fact.getTime());
-			ps.setDate(7, fact.getExtract_time());
+			createUtilities(fact, ps);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -43,15 +57,7 @@ public class FactDAO implements ObjectDAO<Fact>{
 			ResultSet rs = stmt.executeQuery("SELECT * FROM fact WHERE fact_id=" + entity_id_str);
 
 			Fact fact = new Fact();
-			EntityDAO entity = new EntityDAO();
-			ArticleDAO article = new ArticleDAO();
-			fact.setFact_id(rs.getString(1));
-			fact.setSubject(entity.find(rs.getString(2)));
-			fact.setRelationship(rs.getString(3));
-			fact.setObject(entity.find(rs.getString(4)));
-			fact.setArticle(article.find(rs.getString(5)));
-			fact.setTime(rs.getDate(6));
-			fact.setExtract_time(rs.getDate(7));
+			findUtilities(fact, rs);
 			stmt.close();
 			return fact;
 		} catch (SQLException ex) {
@@ -68,13 +74,7 @@ public class FactDAO implements ObjectDAO<Fact>{
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO fact VALUES (?, ?, ?, ?, ?, ?, ?)");
 			for (Fact fact : facts) {
-				ps.setString(1, fact.getFact_id());
-				ps.setString(2, fact.getSubject_id());
-				ps.setString(3, fact.getRelationship());
-				ps.setString(4, fact.getObject_id());
-				ps.setString(5, fact.getArticle_id());
-				ps.setDate(6, fact.getTime());
-				ps.setDate(7, fact.getExtract_time());
+				createUtilities(fact, ps);
 				ps.addBatch();
 			}
 			ps.executeBatch();
@@ -91,15 +91,7 @@ public class FactDAO implements ObjectDAO<Fact>{
 			List<Fact> facts = new ArrayList<>();
 			while (rs.next()) {
 				Fact fact = new Fact();
-				EntityDAO entity = new EntityDAO();
-				ArticleDAO article = new ArticleDAO();
-				fact.setFact_id(rs.getString(1));
-				fact.setSubject(entity.find(rs.getString(2)));
-				fact.setRelationship(rs.getString(3));
-				fact.setObject(entity.find(rs.getString(4)));
-				fact.setArticle(article.find(rs.getString(5)));
-				fact.setTime(rs.getDate(6));
-				fact.setExtract_time(rs.getDate(7));
+				findUtilities(fact, rs);
 				facts.add(fact);
 			}
 			stmt.close();

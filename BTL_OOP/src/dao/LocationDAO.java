@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Event;
 import model.Location;
 
 
@@ -14,12 +15,20 @@ public class LocationDAO implements ObjectDAO<Location>{
 	public LocationDAO() {
 
 	}
+	
+	public void findUtilities(Location location, ResultSet rs) throws SQLException {
+		location.setEntity_id(rs.getString(1));
+		location.setCountry(rs.getString(2));
+	}
 
+	public void createUtilities(Location location, PreparedStatement ps) throws SQLException {
+		ps.setString(1, location.getEntity_id());
+		ps.setString(2, location.getCountry());
+	}
 	public void create(Location location) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO location VALUES (?, ?)");
-			ps.setString(1, location.getEntity_id());
-			ps.setString(2, location.getCountry());
+			this.createUtilities(location, ps);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -46,8 +55,7 @@ public class LocationDAO implements ObjectDAO<Location>{
 			ResultSet rs = stmt.executeQuery("SELECT * FROM location WHERE location_id=" + entity_id_str);
 
 			Location location = new Location();
-			location.setEntity_id(rs.getString(1));
-			location.setCountry(rs.getString(2));
+			this.findUtilities(location, rs);
 			stmt.close();
 			return location;
 		} catch (SQLException ex) {
@@ -69,9 +77,8 @@ public class LocationDAO implements ObjectDAO<Location>{
 	public void createBatch(List<Location> locations) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO location VALUES (?, ?)");
-			for (Location i: locations) {
-				ps.setString(1, i.getEntity_id());
-				ps.setString(2, i.getCountry());
+			for (Location location: locations) {
+				this.createUtilities(location, ps);
 				ps.addBatch();
 			}
 			ps.executeBatch();
@@ -88,8 +95,7 @@ public class LocationDAO implements ObjectDAO<Location>{
 			List<Location> locations = new ArrayList<>();
 			while (rs.next()) {
 				Location location = new Location();
-				location.setEntity_id(rs.getString(1));
-				location.setCountry(rs.getString(2));
+				this.findUtilities(location, rs);
 				locations.add(location);
 			}
 			stmt.close();

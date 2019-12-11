@@ -8,18 +8,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Country;
+import model.Fact;
 
 
 public class CountryDAO implements ObjectDAO<Country>{
 	public CountryDAO() {
 
 	}
-
+	public void findUtilities(Country country, ResultSet rs) throws SQLException {
+		country.setEntity_id(rs.getString(1));
+		country.setCapital(rs.getString(2));
+	}
+	
+	public void createUtilities(Country country, PreparedStatement ps) throws SQLException{
+		ps.setString(1, country.getEntity_id());
+		ps.setString(2, country.getCapital());
+	}
 	public void create(Country country) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO country VALUES (?, ?)");
-			ps.setString(1, country.getEntity_id());
-			ps.setString(2, country.getCapital());
+			this.createUtilities(country, ps);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -46,8 +54,7 @@ public class CountryDAO implements ObjectDAO<Country>{
 			ResultSet rs = stmt.executeQuery("SELECT * FROM country WHERE country_id=" + entity_id_str);
 
 			Country country = new Country();
-			country.setEntity_id(rs.getString(1));
-			country.setCapital(rs.getString(2));
+			this.findUtilities(country, rs);
 			stmt.close();
 			return country;
 		} catch (SQLException ex) {
@@ -70,8 +77,7 @@ public class CountryDAO implements ObjectDAO<Country>{
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO country VALUES (?, ?)");
 			for (Country i: countries) {
-				ps.setString(1, i.getEntity_id());
-				ps.setString(2, i.getCapital());
+				this.createUtilities(i, ps);
 				ps.addBatch();
 			}
 			ps.executeBatch();
@@ -88,8 +94,7 @@ public class CountryDAO implements ObjectDAO<Country>{
 			List<Country> countries = new ArrayList<>();
 			while (rs.next()) {
 				Country country = new Country();
-				country.setEntity_id(rs.getString(1));
-				country.setCapital(rs.getString(2));
+				this.findUtilities(country, rs);
 				countries.add(country);
 			}
 			stmt.close();
