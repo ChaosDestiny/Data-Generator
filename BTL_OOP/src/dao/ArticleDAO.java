@@ -8,19 +8,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Article;
+import model.Fact;
 
-public class ArticleDAO implements ObjectDAO<Article>{
+public class ArticleDAO implements ObjectDAO<Article> {
 	public ArticleDAO() {
 
+	}
+
+	public void findUtilities(Article article, ResultSet rs) throws SQLException {
+		article.setArticle_id(rs.getString(1));
+		article.setLink(rs.getString(2));
+		article.setTitle(rs.getString(3));
+		article.setPublication_date(rs.getDate(4));
+	}
+
+	public void createUtilities(Article article, PreparedStatement ps) throws SQLException {
+		ps.setString(1, article.getArticle_id());
+		ps.setString(2, article.getLink());
+		ps.setString(3, article.getTitle());
+		ps.setDate(4, article.getPublication_date());
 	}
 
 	public void create(Article article) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO article VALUES (?, ?, ?, ?)");
-			ps.setString(1, article.getArticle_id());
-			ps.setString(2, article.getLink());
-			ps.setString(3, article.getTitle());
-			ps.setDate(4, article.getPublication_date());
+			this.createUtilities(article, ps);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -29,7 +41,7 @@ public class ArticleDAO implements ObjectDAO<Article>{
 	}
 
 	public void update(Article article) {
-		
+
 	}
 
 	public Article find(Object entity_id) {
@@ -39,10 +51,7 @@ public class ArticleDAO implements ObjectDAO<Article>{
 			ResultSet rs = stmt.executeQuery("SELECT * FROM article WHERE article_id=" + entity_id_str);
 
 			Article article = new Article();
-			article.setArticle_id(rs.getString(1));
-			article.setLink(rs.getString(2));
-			article.setTitle(rs.getString(3));
-			article.setPublication_date(rs.getDate(4));
+			this.findUtilities(article, rs);
 			stmt.close();
 			return article;
 		} catch (SQLException ex) {
@@ -52,17 +61,14 @@ public class ArticleDAO implements ObjectDAO<Article>{
 	}
 
 	public void remove(Article article) {
-		
+
 	}
 
 	public void createBatch(List<Article> articles) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO article VALUES (?, ?, ?, ?)");
 			for (Article article : articles) {
-				ps.setString(1, article.getArticle_id());
-				ps.setString(2, article.getLink());
-				ps.setString(3, article.getTitle());
-				ps.setDate(4, article.getPublication_date());
+				this.createUtilities(article, ps);
 				ps.addBatch();
 			}
 			ps.executeBatch();
@@ -79,10 +85,7 @@ public class ArticleDAO implements ObjectDAO<Article>{
 			List<Article> articles = new ArrayList<>();
 			while (rs.next()) {
 				Article article = new Article();
-				article.setArticle_id(rs.getString(1));
-				article.setLink(rs.getString(2));
-				article.setTitle(rs.getString(3));
-				article.setPublication_date(rs.getDate(4));
+				this.findUtilities(article, rs);
 				articles.add(article);
 			}
 			stmt.close();

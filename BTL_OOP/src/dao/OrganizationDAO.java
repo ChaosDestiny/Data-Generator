@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Location;
 import model.Organization;
 
 
@@ -14,12 +15,23 @@ public class OrganizationDAO implements ObjectDAO<Organization>{
 	public OrganizationDAO() {
 		
 	}
+	
+	public void findUtilities(Organization organization, ResultSet rs) throws SQLException {
+		organization.setEntity_id(rs.getString(1));
+		organization.setHeadquarter(rs.getString(2));
+		organization.setFounding_date(rs.getDate(3));
+	}
+
+	public void createUtilities(Organization organization, PreparedStatement ps) throws SQLException {
+		ps.setString(1, organization.getEntity_id());
+		ps.setString(2, organization.getHeadquarter());
+		ps.setDate(3, organization.getFounding_date());
+	}
+	
 	public void create(Organization organization) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO organization VALUES (?, ?, ?)");
-			ps.setString(1, organization.getEntity_id());
-			ps.setString(2, organization.getHeadquarter());
-			ps.setDate(3, organization.getFounding_date());
+			this.createUtilities(organization, ps);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -47,9 +59,7 @@ public class OrganizationDAO implements ObjectDAO<Organization>{
 			ResultSet rs = stmt.executeQuery("SELECT * FROM organization WHERE organization_id=" + entity_id_str);
 
 			Organization organization = new Organization();
-			organization.setEntity_id(rs.getString(1));
-			organization.setHeadquarter(rs.getString(2));
-			organization.setFounding_date(rs.getDate(3));
+			this.findUtilities(organization, rs);
 			stmt.close();
 			return organization;
 		} catch (SQLException ex) {
@@ -71,10 +81,8 @@ public class OrganizationDAO implements ObjectDAO<Organization>{
 	public void createBatch(List<Organization> organizations) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO organization VALUES (?, ?, ?)");
-			for (Organization i: organizations) {
-				ps.setString(1, i.getEntity_id());
-				ps.setString(2, i.getHeadquarter());
-				ps.setDate(3, i.getFounding_date());
+			for (Organization organization: organizations) {
+				this.createUtilities(organization, ps);
 				ps.addBatch();
 			}
 			ps.executeBatch();
@@ -91,9 +99,7 @@ public class OrganizationDAO implements ObjectDAO<Organization>{
 			List<Organization> organizations = new ArrayList<>();
 			while (rs.next()) {
 				Organization organization = new Organization();
-				organization.setEntity_id(rs.getString(1));
-				organization.setHeadquarter(rs.getString(2));
-				organization.setFounding_date(rs.getDate(3));
+				this.findUtilities(organization, rs);
 				organizations.add(organization);
 			}
 			stmt.close();
