@@ -23,6 +23,7 @@ import model.Organization;
 import model.Person;
 
 public class Insertion {
+	static final int maxBatch = 1000;
 	public void person() {
 		InsertionUtilities iu = new InsertionUtilities<Person>(Person.class);
 		List<Person> p = iu.readJson("json/person.json");
@@ -113,6 +114,14 @@ public class Insertion {
 	}
 	public static void main(String[] args) {
 		/**
+		 * Số lượng cụ thể:
+		 * person : 10
+		 * country: 10
+		 * agreement: 10
+		 * event: 10
+		 * article 50
+		 * location, fact, org : 100
+		 * - 3 lần lặp sau cứ gấp 10 lần lên.
 		 * Chú ý: Trước khi insert lại thì thực hiện xóa cơ sở dữ liệu đã
 		 * Câu lệnh:
 		 * 
