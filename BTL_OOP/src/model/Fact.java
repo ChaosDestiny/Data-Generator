@@ -2,47 +2,67 @@ package model;
 
 import java.sql.Date;
 
+import dao.EntityDAO;
+
 public class Fact {
 	private String relationship, factId;
 	private Date time, extractTime;
-	protected Entity subject, object;
-	protected Article article;
+//	protected Entity subject, object;
+	protected String articleId;
+	private String subjectId, objectId;
 	
-	public Fact(Entity subject, String relationship, Entity object, Date time, 
-			Date extract_time, Article article) {
+
+	
+	
+
+
+	public Fact(String relationship, String factId, Date time, Date extractTime, String articleId, String subjectId,
+			String objectId) {
+		super();
 		this.relationship = relationship;
-		this.subject = subject;
-		this.object = object;
-		this.article = article;
-		this.extractTime = extract_time;
+		this.factId = factId;
 		this.time = time;
+		this.extractTime = extractTime;
+		this.articleId = articleId;
+		this.subjectId = subjectId;
+		this.objectId = objectId;
 	}
+
+
+
 	public Fact() {
 		
 	}
 	
-	public String getSubject_id() {
-		return subject.getEntityId();
-	}
 	
-	public Entity getSubject() {
-		return subject;
+
+	public String getSubjectId() {
+		return subjectId;
 	}
-	public void setSubject(Entity subject) {
-		this.subject = subject;
+
+
+	public void setSubjectId(String subjectId) {
+		this.subjectId = subjectId;
 	}
-	public Entity getObject() {
-		return object;
+
+
+	public String getObjectId() {
+		return objectId;
 	}
-	public void setObject(Entity object) {
-		this.object = object;
+
+
+	public void setObjectId(String objectId) {
+		this.objectId = objectId;
 	}
-	public Article getArticle() {
-		return article;
+
+
+	
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
 	}
-	public void setArticle(Article article) {
-		this.article = article;
-	}
+
+
+
 	public void setRelationship(String relationship) {
 		this.relationship = relationship;
 	}
@@ -52,10 +72,7 @@ public class Fact {
 	public void setExtractTime(Date extract_time) {
 		this.extractTime = extract_time;
 	}
-	public String getObject_id() {
-		return object.getEntityId();
-	}
-	
+
 	public String getRelationship() {
 		return relationship;
 	}
@@ -67,10 +84,14 @@ public class Fact {
 		this.factId = fact_id;
 	}
 	
-	public String getArticle_id() {
-		return article.getArticleId();
-	}
 	
+	
+	public String getArticleId() {
+		return articleId;
+	}
+
+
+
 	public Date getTime() {
 		return time;
 	}

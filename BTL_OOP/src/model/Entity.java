@@ -17,6 +17,13 @@ public class Entity {
 	public String getEntityId() {
 		return entityId;
 	}
+	public Entity(String entityId, String name, String description, String entityName) {
+		super();
+		this.entityId = entityId;
+		this.name = name;
+		this.description = description;
+		this.entityName = entityName;
+	}
 	public void setEntityId(String entity_id) {
 		this.entityId = entity_id;
 	}
