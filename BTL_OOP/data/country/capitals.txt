@@ -2,7 +2,7 @@ Riyadh
 Kabul 
 Cairo 
 Tirana 
-Algiers (Alger, Algier) 
+Algiers 
 New Delhi 
 Andorra la Vella 
 Luanda 
@@ -24,7 +24,7 @@ Belmopan
 Porto-Novo
 Thimphu
 Brussels 
-Yamoussoukro, Abidjan (thủ đô kinh tế và chính trị trên thực tế) 
+Yamoussoukro, Abidjan
 Lisboa 
 Sarajevo
 Gaborone 
@@ -85,13 +85,13 @@ Jakarta
 Tehran 
 Baghdad 
 Dublin 
-Jerusalem (Israel tuyên bố Jerusalem là thủ đô vào năm 1950. Nhưng gần như tất cả các nước duy trì sứ quán của họ ở Tel Aviv)
+Jerusalem 
 Kingston
 Amman 
 Astana Kenya Nairobi 
 (Nam) Tarawa Kosovo Pristina 
 Kuwait 
-Bishkek (trước đây là Frunze)
+Bishkek 
 Viên Chăng 
 Riga 
 Maseru 
@@ -109,7 +109,7 @@ Lilongwe
 Kuala Lumpur 
 Male' 
 Bamako 
-Valletta Martinique Fort-de-France
+Valletta Martinique 
 Nouakchott 
 Port Louis 
 Mexico ﻿
@@ -120,21 +120,19 @@ Podgorica
 PlymouthMaputo
 Naypyidaw
 Oslo 
-Pretoria (hành chính) Bloemfontein (Mangaung) (trung tâm tư pháp). Cape Town (trung tâm lập pháp) 
+Pretoria 
 Juba 
 Windhoek 
-không có thủ đô chính thức. Các văn phòng chính phủ nằm ở quận Yaren
 Kathmandu 
 Nouméa 
 Wellington 
 Moskva 
-không có thủ đô chính thức, Tokyo là nơi đặt trụ sở các cơ quan chính phủ
 Managua 
 Niamey 
 Abuja
 Muscat
 Islamabad
-Ngerulmud, Melekeok (trên đảo Babeldaob) 
+Ngerulmud, Melekeok 
 Đông Jerusalem 
 Panama Panama
 Papua New Guinea Port Moresby 
@@ -167,7 +165,7 @@ Khartoum
 Paramaribo
 Mbabane và Lobamba
 Damascus (Dimashq)
-Dushanbe Tanzania Dar es Salaam (thực tế), Dodoma (lập pháp)
+Dushanbe Tanzania Dar es Salaam
 Madrid 
 Tazania
 Băng Cốc 
