@@ -9,7 +9,7 @@ public class JDBCMySQLConnection {
 	private static JDBCMySQLConnection instance = new JDBCMySQLConnection();
 	public static final String URL = "jdbc:mysql://localhost:3306/oop";
 	public static final String USER = "root";
-	public static final String PASS = "hunghoan";
+	public static final String PASS = "1201";
 	public static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
 	/**
 	 * Get a connection to database

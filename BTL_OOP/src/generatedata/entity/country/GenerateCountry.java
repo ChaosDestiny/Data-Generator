@@ -41,8 +41,8 @@ public class GenerateCountry {
 
     JsonArray setId(JsonArray arr) {
         for (int i = 0; i < arr.size(); ++i) {
-            arr.get(i).getAsJsonObject().addProperty("id", "ctry" + Integer.toString(i));
-            arr.get(i).getAsJsonObject().addProperty("entity_name", "country");
+            arr.get(i).getAsJsonObject().addProperty("entityId", "ctry" + Integer.toString(i));
+            arr.get(i).getAsJsonObject().addProperty("entityName", "country");
         }
 
         return arr;

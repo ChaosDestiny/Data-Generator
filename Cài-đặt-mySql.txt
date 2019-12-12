@@ -1,0 +1,10 @@
+Cài đặt mySql
+
+1.Link download : https://taimienphi.vn/download-mysql-for-windows-1322
+
+2.Cài đặt:
+	-Nhấp chuột để mở file cài đặt.
+	-Chấp nhận các điều khoản dịch vụ
+	- Chọn Developer Default, cứ Next đến khi xuất hiện hộp thoại : Accounts and  Roles, điền tài khoản và password để đăng nhập vào mySql sau này, cứ next tiếp là OK
+	-Finish và mở ứng dụng Mysql.
+

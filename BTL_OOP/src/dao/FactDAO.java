@@ -18,20 +18,20 @@ public class FactDAO implements ObjectDAO<Fact>{
 		EntityDAO entity = new EntityDAO();
 		ArticleDAO article = new ArticleDAO();
 		fact.setFactId(rs.getString(1));
-		fact.setSubject(entity.find(rs.getString(2)));
+		fact.setSubjectId(rs.getString(2));
 		fact.setRelationship(rs.getString(3));
-		fact.setObject(entity.find(rs.getString(4)));
-		fact.setArticle(article.find(rs.getString(5)));
+		fact.setObjectId(rs.getString(4));
+		fact.setArticleId(rs.getString(5));;
 		fact.setTime(rs.getDate(6));
 		fact.setExtractTime(rs.getDate(7));
 	}
 	
 	public void createUtilities(Fact fact, PreparedStatement ps) throws SQLException{
 		ps.setString(1, fact.getFactId());
-		ps.setString(2, fact.getSubject_id());
+		ps.setString(2, fact.getSubjectId());
 		ps.setString(3, fact.getRelationship());
-		ps.setString(4, fact.getObject_id());
-		ps.setString(5, fact.getArticle_id());
+		ps.setString(4, fact.getObjectId());
+		ps.setString(5, fact.getArticleId());
 		ps.setDate(6, fact.getTime());
 		ps.setDate(7, fact.getExtractTime());
 	}

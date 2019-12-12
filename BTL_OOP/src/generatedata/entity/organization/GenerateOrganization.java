@@ -29,7 +29,7 @@ public class GenerateOrganization {
             obj.addProperty("name", organizations.get(idxOr));
             obj.addProperty("description", "");
             obj.addProperty("headquater", "");
-            obj.addProperty("founding_date", date);
+            obj.addProperty("foundingDate", date);
 
             res.add(obj);
         }
@@ -39,8 +39,8 @@ public class GenerateOrganization {
 
     JsonArray setId(JsonArray arr) {
         for (int i = 0; i < arr.size(); ++i) {
-            arr.get(i).getAsJsonObject().addProperty("id", "org" + Integer.toString(i));
-            arr.get(i).getAsJsonObject().addProperty("entity_name", "organization");
+            arr.get(i).getAsJsonObject().addProperty("entityId", "org" + Integer.toString(i));
+            arr.get(i).getAsJsonObject().addProperty("entityName", "organization");
         }
 
         return arr;

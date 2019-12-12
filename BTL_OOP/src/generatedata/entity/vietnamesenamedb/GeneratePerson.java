@@ -32,11 +32,11 @@ public class GeneratePerson {
             int szLsWord = lsWord.size();
 
             JsonObject newPerson = new JsonObject();
-            newPerson.addProperty("first_name", lsWord.get(szLsWord - 1));
+//            newPerson.addProperty("first_name", lsWord.get(szLsWord - 1));
             // newPerson.addProperty("last_name", String.join(" ", lsWord.subList(0, szLsWord - 1)));
-            newPerson.addProperty("full_name", fullName);
+            newPerson.addProperty("name", fullName);
             // newPerson.addProperty("last_name_group", lsWord.get(0));
-            newPerson.addProperty("gender", gender);
+//            newPerson.addProperty("gender", gender);
             newPerson.addProperty("description", desc.get(idxDesc));
             newPerson.addProperty("job", jobs.get(idxJob));
             newPerson.addProperty("age", age);
@@ -50,8 +50,8 @@ public class GeneratePerson {
 
     JsonArray setId(JsonArray arr) {
         for (int i = 0; i < arr.size(); ++i) {
-            arr.get(i).getAsJsonObject().addProperty("id", "per" + Integer.toString(i));
-            arr.get(i).getAsJsonObject().addProperty("entity_name", "person");
+            arr.get(i).getAsJsonObject().addProperty("entityId", "per" + Integer.toString(i));
+            arr.get(i).getAsJsonObject().addProperty("entityName", "person");
         }
 
         return arr;
@@ -75,20 +75,20 @@ public class GeneratePerson {
             obj.remove("gender");
             obj.remove("last_name");
             obj.remove("last_name_group");
-            if (girlNameOneWord.contains(obj.get("first_name").getAsString())) {
-                obj.addProperty("gender", "0");
-            } else {
-                obj.addProperty("gender", "1");
-            }
+            obj.remove("first_name");
+            obj.remove("gender");
 
             Random random = new Random();
             int idxDesc = random.nextInt(description.size());
             int idxJob = random.nextInt(jobs.size());
             int age = random.nextInt(60) + 13;
+            String name = obj.get("full_name").getAsString();
+            obj.remove("full_name");
 
             obj.addProperty("description", description.get(idxDesc));
             obj.addProperty("job", jobs.get(idxJob));
             obj.addProperty("age", age);
+            obj.addProperty("name", name);
             res.add(obj);
         }
 

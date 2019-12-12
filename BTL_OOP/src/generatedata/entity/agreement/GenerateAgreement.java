@@ -1,4 +1,4 @@
-package generatedata.entity.aggrement;
+package generatedata.entity.agreement;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
 import generatedata.utilites.ParseData;
 import generatedata.utilites.RandomDate;
 
-public class GenerateAggrement {
+public class GenerateAgreement {
     public JsonArray result;
 
     JsonArray genAggrement(List<String> aggrement, List<String> description, int length) {
@@ -29,7 +29,7 @@ public class GenerateAggrement {
             JsonObject obj = new JsonObject();
             obj.addProperty("name", aggrement.get(idxAgg));
             obj.addProperty("description", description.get(idxDesc));
-            obj.addProperty("contact_date", date);
+            obj.addProperty("contactDate", date);
 
             res.add(obj);
         }
@@ -39,8 +39,8 @@ public class GenerateAggrement {
 
     JsonArray setId(JsonArray arr) {
         for (int i = 0; i < arr.size(); ++i) {
-            arr.get(i).getAsJsonObject().addProperty("id", "agg" + Integer.toString(i));
-            arr.get(i).getAsJsonObject().addProperty("entity_name", "aggrement");
+            arr.get(i).getAsJsonObject().addProperty("entityId", "agg" + Integer.toString(i));
+            arr.get(i).getAsJsonObject().addProperty("entityName", "agreement");
         }
 
         return arr;

@@ -40,8 +40,8 @@ public class GenerateEvent {
 
     JsonArray setId(JsonArray arr) {
         for (int i = 0; i < arr.size(); ++i) {
-            arr.get(i).getAsJsonObject().addProperty("id", "event" + Integer.toString(i));
-            arr.get(i).getAsJsonObject().addProperty("entity_name", "event");
+            arr.get(i).getAsJsonObject().addProperty("entityId", "event" + Integer.toString(i));
+            arr.get(i).getAsJsonObject().addProperty("entityName", "event");
         }
 
         return arr;

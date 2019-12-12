@@ -38,8 +38,8 @@ public class GenerateLocation {
 
     JsonArray setId(JsonArray arr) {
         for (int i = 0; i < arr.size(); ++i) {
-            arr.get(i).getAsJsonObject().addProperty("id", "loc" + Integer.toString(i));
-            arr.get(i).getAsJsonObject().addProperty("entity_name", "location");
+            arr.get(i).getAsJsonObject().addProperty("entityId", "loc" + Integer.toString(i));
+            arr.get(i).getAsJsonObject().addProperty("entityName", "location");
         }
 
         return arr;

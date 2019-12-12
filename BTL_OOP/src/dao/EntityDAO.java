@@ -83,7 +83,7 @@ public class EntityDAO implements ObjectDAO<Entity> {
 
 	public void createBatch(List<Entity> entitys) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO entity VALUES (?, ?, ?)");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO entity VALUES (?, ?, ?, ?)");
 			for (Entity i : entitys) {
 				this.createUtilities(i, ps);
 				ps.addBatch();

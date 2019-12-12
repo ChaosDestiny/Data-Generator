@@ -1,2 +1,5 @@
 /app/
 /generatedata/
+/connection/
+/model/
+/dao/
