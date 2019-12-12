@@ -16,17 +16,17 @@ public class ArticleDAO implements ObjectDAO<Article> {
 	}
 
 	public void findUtilities(Article article, ResultSet rs) throws SQLException {
-		article.setArticle_id(rs.getString(1));
+		article.setArticleId(rs.getString(1));
 		article.setLink(rs.getString(2));
 		article.setTitle(rs.getString(3));
-		article.setPublication_date(rs.getDate(4));
+		article.setPublicationDate(rs.getDate(4));
 	}
 
 	public void createUtilities(Article article, PreparedStatement ps) throws SQLException {
-		ps.setString(1, article.getArticle_id());
+		ps.setString(1, article.getArticleId());
 		ps.setString(2, article.getLink());
 		ps.setString(3, article.getTitle());
-		ps.setDate(4, article.getPublication_date());
+		ps.setDate(4, article.getPublicationDate());
 	}
 
 	public void create(Article article) {

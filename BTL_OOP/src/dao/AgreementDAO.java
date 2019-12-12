@@ -14,13 +14,13 @@ public class AgreementDAO implements ObjectDAO<Agreement>{
 		
 	}
 	public void findUtilities(Agreement agreement, ResultSet rs) throws SQLException {
-		agreement.setEntity_id(rs.getString(1));
-		agreement.setContract_date(rs.getDate(2));
+		agreement.setEntityId(rs.getString(1));
+		agreement.setContractDate(rs.getDate(2));
 	}
 	
 	public void createUtilities(Agreement agreement, PreparedStatement ps) throws SQLException{
-		ps.setString(1, agreement.getEntity_id());
-		ps.setDate(2, agreement.getContract_date());
+		ps.setString(1, agreement.getEntityId());
+		ps.setDate(2, agreement.getContractDate());
 	}
 	public void create(Agreement agreement) {
 		try {
@@ -36,8 +36,8 @@ public class AgreementDAO implements ObjectDAO<Agreement>{
 	public void update(Agreement agreement) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE agreement SET contract_date=? WHERE agreement_id=?");
-			ps.setDate(1, agreement.getContract_date());
-			ps.setString(2, agreement.getEntity_id());
+			ps.setDate(1, agreement.getContractDate());
+			ps.setString(2, agreement.getEntityId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -64,7 +64,7 @@ public class AgreementDAO implements ObjectDAO<Agreement>{
 	public void remove(Agreement agreement) {
 		try {
 	        Statement stmt = connection.createStatement();
-	        stmt.executeUpdate("DELETE FROM agreement WHERE agreement_id=" + agreement.getEntity_id());
+	        stmt.executeUpdate("DELETE FROM agreement WHERE agreement_id=" + agreement.getEntityId());
 	        stmt.close();
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();

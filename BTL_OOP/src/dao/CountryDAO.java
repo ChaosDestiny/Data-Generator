@@ -16,12 +16,12 @@ public class CountryDAO implements ObjectDAO<Country>{
 
 	}
 	public void findUtilities(Country country, ResultSet rs) throws SQLException {
-		country.setEntity_id(rs.getString(1));
+		country.setEntityId(rs.getString(1));
 		country.setCapital(rs.getString(2));
 	}
 	
 	public void createUtilities(Country country, PreparedStatement ps) throws SQLException{
-		ps.setString(1, country.getEntity_id());
+		ps.setString(1, country.getEntityId());
 		ps.setString(2, country.getCapital());
 	}
 	public void create(Country country) {
@@ -39,7 +39,7 @@ public class CountryDAO implements ObjectDAO<Country>{
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE country SET capital=? WHERE country_id=?");
 			ps.setString(1, country.getCapital());
-			ps.setString(2, country.getEntity_id());
+			ps.setString(2, country.getEntityId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -66,7 +66,7 @@ public class CountryDAO implements ObjectDAO<Country>{
 	public void remove(Country country) {
 		try {
 	        Statement stmt = connection.createStatement();
-	        stmt.executeUpdate("DELETE FROM country WHERE id=" + country.getEntity_id());
+	        stmt.executeUpdate("DELETE FROM country WHERE id=" + country.getEntityId());
 	        stmt.close();
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();

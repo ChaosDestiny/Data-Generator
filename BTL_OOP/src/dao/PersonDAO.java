@@ -16,13 +16,13 @@ public class PersonDAO implements ObjectDAO<Person> {
 	}
 	
 	public void findUtilities(Person person, ResultSet rs) throws SQLException {
-		person.setEntity_id(rs.getString(1));
+		person.setEntityId(rs.getString(1));
 		person.setJob(rs.getString(2));
 		person.setAge(rs.getInt(3));
 	}
 
 	public void createUtilities(Person person, PreparedStatement ps) throws SQLException {
-		ps.setString(1, person.getEntity_id());
+		ps.setString(1, person.getEntityId());
 		ps.setString(2, person.getJob());
 		ps.setInt(3, person.getAge());
 	}
@@ -44,7 +44,7 @@ public class PersonDAO implements ObjectDAO<Person> {
 					.prepareStatement("UPDATE person SET job=?, age=? WHERE person_id=?");
 			ps.setString(1, person.getJob());
 			ps.setInt(2, person.getAge());
-			ps.setString(3, person.getEntity_id());
+			ps.setString(3, person.getEntityId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -71,7 +71,7 @@ public class PersonDAO implements ObjectDAO<Person> {
 	public void remove(Person person) {
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("DELETE FROM person WHERE person_id=" + person.getEntity_id());
+			stmt.executeUpdate("DELETE FROM person WHERE person_id=" + person.getEntityId());
 			stmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();

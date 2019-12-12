@@ -3,8 +3,8 @@ package model;
 import java.sql.Date;
 
 public class Article {
-	private String link, title, article_id;
-	private Date publication_date;
+	private String link, title, articleId;
+	private Date publicationDate;
 	
 	public Article() {
 		
@@ -25,16 +25,16 @@ public class Article {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getArticle_id() {
-		return article_id;
+	public String getArticleId() {
+		return articleId;
 	}
-	public void setArticle_id(String article_id) {
-		this.article_id = article_id;
+	public void setArticleId(String article_id) {
+		this.articleId = article_id;
 	}
-	public Date getPublication_date() {
-		return publication_date;
+	public Date getPublicationDate() {
+		return publicationDate;
 	}
-	public void setPublication_date(Date publication_date) {
-		this.publication_date = publication_date;
+	public void setPublicationDate(Date publication_date) {
+		this.publicationDate = publication_date;
 	}
 }

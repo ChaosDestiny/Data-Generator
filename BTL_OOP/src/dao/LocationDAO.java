@@ -17,12 +17,12 @@ public class LocationDAO implements ObjectDAO<Location>{
 	}
 	
 	public void findUtilities(Location location, ResultSet rs) throws SQLException {
-		location.setEntity_id(rs.getString(1));
+		location.setEntityId(rs.getString(1));
 		location.setCountry(rs.getString(2));
 	}
 
 	public void createUtilities(Location location, PreparedStatement ps) throws SQLException {
-		ps.setString(1, location.getEntity_id());
+		ps.setString(1, location.getEntityId());
 		ps.setString(2, location.getCountry());
 	}
 	public void create(Location location) {
@@ -40,7 +40,7 @@ public class LocationDAO implements ObjectDAO<Location>{
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE location SET country=? WHERE location_id=?");
 			ps.setString(1, location.getCountry());
-			ps.setString(2, location.getEntity_id());
+			ps.setString(2, location.getEntityId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -67,7 +67,7 @@ public class LocationDAO implements ObjectDAO<Location>{
 	public void remove(Location location) {
 		try {
 	        Statement stmt = connection.createStatement();
-	        stmt.executeUpdate("DELETE FROM location WHERE location_id=" + location.getEntity_id());
+	        stmt.executeUpdate("DELETE FROM location WHERE location_id=" + location.getEntityId());
 	        stmt.close();
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();
