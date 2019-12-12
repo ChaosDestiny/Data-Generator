@@ -1,0 +1,71 @@
+package generatedata.entity.aggrement;
+
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.util.List;
+import java.util.Random;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import generatedata.utilites.ParseData;
+import generatedata.utilites.RandomDate;
+
+public class GenerateAggrement {
+    public JsonArray result;
+
+    JsonArray genAggrement(List<String> aggrement, List<String> description, int length) {
+        JsonArray res = new JsonArray();
+        
+        for (int i = 0; i < length; ++i) {
+            Random random = new Random();
+            int idxAgg = random.nextInt(aggrement.size());
+            int idxDesc = random.nextInt(description.size());
+            long ms = ((long) idxAgg * 280219990 + (long)idxDesc * 280219990 + (long) random.nextInt(idxAgg + idxDesc + 10000) * 280219990) ;
+            String date = RandomDate.genData(ms);
+
+            JsonObject obj = new JsonObject();
+            obj.addProperty("name", aggrement.get(idxAgg));
+            obj.addProperty("description", description.get(idxDesc));
+            obj.addProperty("contact_date", date);
+
+            res.add(obj);
+        }
+        
+        return res;
+    }
+
+    JsonArray setId(JsonArray arr) {
+        for (int i = 0; i < arr.size(); ++i) {
+            arr.get(i).getAsJsonObject().addProperty("id", "agg" + Integer.toString(i));
+            arr.get(i).getAsJsonObject().addProperty("entity_name", "aggrement");
+        }
+
+        return arr;
+    }
+
+    public void dump2Json(String filePath, int length) {
+        ParseData parse = new ParseData();
+        List<String> aggrement = parse.getDataFromTxt("data/aggrement/aggrements.txt");
+        List<String> description = parse.getDataFromTxt("data/aggrement/description.txt");
+        
+        JsonArray res = genAggrement(aggrement, description, length);
+        res = setId(res);
+        result = res;
+
+        try {
+            FileOutputStream stream = new FileOutputStream(filePath);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(stream, "UTF-8"));
+            
+            Gson gson = new Gson();
+            out.write(gson.toJson(res));
+            out.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+}
