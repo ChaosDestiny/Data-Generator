@@ -17,15 +17,15 @@ public class OrganizationDAO implements ObjectDAO<Organization>{
 	}
 	
 	public void findUtilities(Organization organization, ResultSet rs) throws SQLException {
-		organization.setEntity_id(rs.getString(1));
+		organization.setEntityId(rs.getString(1));
 		organization.setHeadquarter(rs.getString(2));
-		organization.setFounding_date(rs.getDate(3));
+		organization.setFoundingDate(rs.getDate(3));
 	}
 
 	public void createUtilities(Organization organization, PreparedStatement ps) throws SQLException {
-		ps.setString(1, organization.getEntity_id());
+		ps.setString(1, organization.getEntityId());
 		ps.setString(2, organization.getHeadquarter());
-		ps.setDate(3, organization.getFounding_date());
+		ps.setDate(3, organization.getFoundingDate());
 	}
 	
 	public void create(Organization organization) {
@@ -43,8 +43,8 @@ public class OrganizationDAO implements ObjectDAO<Organization>{
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE organization SET headquarter=?, founding_date=? WHERE organization_id=?");
 			ps.setString(1, organization.getHeadquarter());
-			ps.setDate(2, organization.getFounding_date());
-			ps.setString(3, organization.getEntity_id());
+			ps.setDate(2, organization.getFoundingDate());
+			ps.setString(3, organization.getEntityId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -71,7 +71,7 @@ public class OrganizationDAO implements ObjectDAO<Organization>{
 	public void remove(Organization organization) {
 		try {
 	        Statement stmt = connection.createStatement();
-	        stmt.executeUpdate("DELETE FROM organization WHERE organization_id=" + organization.getEntity_id());
+	        stmt.executeUpdate("DELETE FROM organization WHERE organization_id=" + organization.getEntityId());
 	        stmt.close();
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();

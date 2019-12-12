@@ -1,10 +1,10 @@
 package model;
 
 public class Entity {
-	protected String entity_id;
+	protected String entityId;
 	protected String name;
 	protected String description;
-	private String entity_name;
+	private String entityName;
 	
 	public Entity() {
 		
@@ -14,11 +14,11 @@ public class Entity {
 		this.description = description;
 	}
 	
-	public String getEntity_id() {
-		return entity_id;
+	public String getEntityId() {
+		return entityId;
 	}
-	public void setEntity_id(String entity_id) {
-		this.entity_id = entity_id;
+	public void setEntityId(String entity_id) {
+		this.entityId = entity_id;
 	}
 	public String getName() {
 		return name;
@@ -32,10 +32,10 @@ public class Entity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getEntity_name() {
-		return entity_name;
+	public String getEntityName() {
+		return entityName;
 	}
-	public void setEntity_name(String entity_name) {
-		this.entity_name = entity_name;
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
 	}
 }

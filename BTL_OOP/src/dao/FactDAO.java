@@ -17,23 +17,23 @@ public class FactDAO implements ObjectDAO<Fact>{
 	public void findUtilities(Fact fact, ResultSet rs) throws SQLException {
 		EntityDAO entity = new EntityDAO();
 		ArticleDAO article = new ArticleDAO();
-		fact.setFact_id(rs.getString(1));
+		fact.setFactId(rs.getString(1));
 		fact.setSubject(entity.find(rs.getString(2)));
 		fact.setRelationship(rs.getString(3));
 		fact.setObject(entity.find(rs.getString(4)));
 		fact.setArticle(article.find(rs.getString(5)));
 		fact.setTime(rs.getDate(6));
-		fact.setExtract_time(rs.getDate(7));
+		fact.setExtractTime(rs.getDate(7));
 	}
 	
 	public void createUtilities(Fact fact, PreparedStatement ps) throws SQLException{
-		ps.setString(1, fact.getFact_id());
+		ps.setString(1, fact.getFactId());
 		ps.setString(2, fact.getSubject_id());
 		ps.setString(3, fact.getRelationship());
 		ps.setString(4, fact.getObject_id());
 		ps.setString(5, fact.getArticle_id());
 		ps.setDate(6, fact.getTime());
-		ps.setDate(7, fact.getExtract_time());
+		ps.setDate(7, fact.getExtractTime());
 	}
 	public void create(Fact fact) {
 		try {

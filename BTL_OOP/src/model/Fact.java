@@ -3,8 +3,8 @@ package model;
 import java.sql.Date;
 
 public class Fact {
-	private String relationship, fact_id;
-	private Date time, extract_time;
+	private String relationship, factId;
+	private Date time, extractTime;
 	protected Entity subject, object;
 	protected Article article;
 	
@@ -14,7 +14,7 @@ public class Fact {
 		this.subject = subject;
 		this.object = object;
 		this.article = article;
-		this.extract_time = extract_time;
+		this.extractTime = extract_time;
 		this.time = time;
 	}
 	public Fact() {
@@ -22,7 +22,7 @@ public class Fact {
 	}
 	
 	public String getSubject_id() {
-		return subject.getEntity_id();
+		return subject.getEntityId();
 	}
 	
 	public Entity getSubject() {
@@ -49,33 +49,33 @@ public class Fact {
 	public void setTime(Date time) {
 		this.time = time;
 	}
-	public void setExtract_time(Date extract_time) {
-		this.extract_time = extract_time;
+	public void setExtractTime(Date extract_time) {
+		this.extractTime = extract_time;
 	}
 	public String getObject_id() {
-		return object.getEntity_id();
+		return object.getEntityId();
 	}
 	
 	public String getRelationship() {
 		return relationship;
 	}
 	
-	public String getFact_id() {
-		return fact_id;
+	public String getFactId() {
+		return factId;
 	}
-	public void setFact_id(String fact_id) {
-		this.fact_id = fact_id;
+	public void setFactId(String fact_id) {
+		this.factId = fact_id;
 	}
 	
 	public String getArticle_id() {
-		return article.getArticle_id();
+		return article.getArticleId();
 	}
 	
 	public Date getTime() {
 		return time;
 	}
 
-	public Date getExtract_time() {
-		return extract_time;
+	public Date getExtractTime() {
+		return extractTime;
 	}
 }

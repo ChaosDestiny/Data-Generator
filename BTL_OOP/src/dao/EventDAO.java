@@ -16,12 +16,12 @@ public class EventDAO implements ObjectDAO<Event> {
 	}
 
 	public void findUtilities(Event event, ResultSet rs) throws SQLException {
-		event.setEntity_id(rs.getString(1));
+		event.setEntityId(rs.getString(1));
 		event.setDate(rs.getDate(2));
 	}
 
 	public void createUtilities(Event event, PreparedStatement ps) throws SQLException {
-		ps.setString(1, event.getEntity_id());
+		ps.setString(1, event.getEntityId());
 		ps.setDate(2, event.getDate());
 	}
 	
@@ -40,7 +40,7 @@ public class EventDAO implements ObjectDAO<Event> {
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE event SET time=? WHERE event_id=?");
 			ps.setDate(1, event.getDate());
-			ps.setString(2, event.getEntity_id());
+			ps.setString(2, event.getEntityId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -67,7 +67,7 @@ public class EventDAO implements ObjectDAO<Event> {
 	public void remove(Event event) {
 		try {
 	        Statement stmt = connection.createStatement();
-	        stmt.executeUpdate("DELETE FROM event WHERE event_id=" + event.getEntity_id());
+	        stmt.executeUpdate("DELETE FROM event WHERE event_id=" + event.getEntityId());
 	        stmt.close();
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();

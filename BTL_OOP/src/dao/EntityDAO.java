@@ -16,17 +16,17 @@ public class EntityDAO implements ObjectDAO<Entity> {
 	}
 	
 	public void findUtilities(Entity entity, ResultSet rs) throws SQLException {
-		entity.setEntity_id(rs.getString(1));
+		entity.setEntityId(rs.getString(1));
 		entity.setName(rs.getString(2));
 		entity.setDescription(rs.getString(3));
 		entity.setName(rs.getString(4));
 	}
 
 	public void createUtilities(Entity entity, PreparedStatement ps) throws SQLException {
-		ps.setString(1, entity.getEntity_id());
+		ps.setString(1, entity.getEntityId());
 		ps.setString(2, entity.getName());
 		ps.setString(3, entity.getDescription());
-		ps.setString(4, entity.getEntity_name());
+		ps.setString(4, entity.getEntityName());
 	}
 	
 	public void create(Entity entity) {
@@ -46,8 +46,8 @@ public class EntityDAO implements ObjectDAO<Entity> {
 					.prepareStatement("UPDATE entity SET name=?, description=?, entity_name=? WHERE entity_id=?");
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getDescription());
-			ps.setString(3, entity.getEntity_name());
-			ps.setString(4, entity.getEntity_id());
+			ps.setString(3, entity.getEntityName());
+			ps.setString(4, entity.getEntityId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException ex) {
@@ -74,7 +74,7 @@ public class EntityDAO implements ObjectDAO<Entity> {
 	public void remove(Entity entity) {
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("DELETE FROM entity WHERE entity_id=" + entity.getEntity_id());
+			stmt.executeUpdate("DELETE FROM entity WHERE entity_id=" + entity.getEntityId());
 			stmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
