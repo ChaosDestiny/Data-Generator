@@ -12,6 +12,7 @@ import connection.JDBCMySQLConnection;
 
 public class QueryExc {
 	public static final Connection connection = JDBCMySQLConnection.getConnection();
+	
 	public ResultSet exe(String query)  {
 		try {
 			Statement stmt = connection.createStatement();
@@ -40,15 +41,15 @@ public class QueryExc {
 		}
 		
 	}
-	public static void main(String[] args) throws Exception {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Nhập câu truy vấn trên 1 dòng: ");
-		String query = scanner.nextLine();
-		QueryExc q = new QueryExc();
-		long a = System.currentTimeMillis();
-		ResultSet rs = q.exe(query);
-		long b = System.currentTimeMillis();
-		q.extractResult(rs);
-		System.out.println("Thời gian thực hiện truy vấn (ms): " + (b - a));
-	}
+//	public static void main(String[] args) throws Exception {
+//		Scanner scanner = new Scanner(System.in);
+//		System.out.println("Nhập câu truy vấn trên 1 dòng: ");
+//		String query = scanner.nextLine();
+//		QueryExc q = new QueryExc();
+//		long a = System.currentTimeMillis();
+//		ResultSet rs = q.exe(query);
+//		long b = System.currentTimeMillis();
+//		q.extractResult(rs);
+//		System.out.println("Thời gian thực hiện truy vấn (ms): " + (b - a));
+//	}
 }

@@ -112,42 +112,42 @@ public class Insertion {
 		FactDAO ad = new FactDAO();
 		ad.createBatch(p);
 	}
-	public static void main(String[] args) {
-		/**
-		 * Số lượng cụ thể:
-		 * person : 10
-		 * country: 10
-		 * agreement: 10
-		 * event: 10
-		 * article 50
-		 * location, fact, org : 100
-		 * - 3 lần lặp sau cứ gấp 10 lần lên.
-		 * Chú ý: Trước khi insert lại thì thực hiện xóa cơ sở dữ liệu đã
-		 * Câu lệnh:
-		 * 
-		 * 	use oop;
-			SET SQL_SAFE_UPDATES = 0;
-			delete from fact;
-			delete from person;
-			delete from location;
-			delete from event;
-			delete from organization;
-			delete from country;
-			delete from agreement;
-			delete from entity;
-			delete from article;
-		 */
-		Insertion insertion = new Insertion();
-		GeneDataJson.run();
-		insertion.person();
-		insertion.organization();
-		insertion.location();
-		insertion.event();
-		insertion.country();
-		insertion.agreement();
-		insertion.article();
-		insertion.fact();
-		
-		
-	}
+//	public static void main(String[] args) {
+//		/**
+//		 * Số lượng cụ thể:
+//		 * person : 10
+//		 * country: 10
+//		 * agreement: 10
+//		 * event: 10
+//		 * article 50
+//		 * location, fact, org : 100
+//		 * - 3 lần lặp sau cứ gấp 10 lần lên.
+//		 * Chú ý: Trước khi insert lại thì thực hiện xóa cơ sở dữ liệu đã
+//		 * Câu lệnh:
+//		 * 
+//		 * 	use oop;
+//			SET SQL_SAFE_UPDATES = 0;
+//			delete from fact;
+//			delete from person;
+//			delete from location;
+//			delete from event;
+//			delete from organization;
+//			delete from country;
+//			delete from agreement;
+//			delete from entity;
+//			delete from article;
+//		 */
+//		Insertion insertion = new Insertion();
+//		GeneDataJson.run();
+//		insertion.person();
+//		insertion.organization();
+//		insertion.location();
+//		insertion.event();
+//		insertion.country();
+//		insertion.agreement();
+//		insertion.article();
+//		insertion.fact();
+//		
+//		
+//	}
 }
