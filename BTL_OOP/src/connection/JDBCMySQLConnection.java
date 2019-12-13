@@ -37,10 +37,10 @@ public class JDBCMySQLConnection {
 	/**
      * Test Connection
      */
-    public static void main(String[] args) {
-        Connection connection = JDBCMySQLConnection.getConnection();
-        if (connection != null) {
-        	System.out.println("Ok");
-        }
-    }
+//    public static void main(String[] args) {
+//        Connection connection = JDBCMySQLConnection.getConnection();
+//        if (connection != null) {
+//        	System.out.println("Ok");
+//        }
+//    }
 }
